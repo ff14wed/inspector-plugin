@@ -30,7 +30,7 @@ a sequence of events.
 2. Check the streams (or process IDs) that you would like to inspect.
 3. Fill in:
     - Plugin Name: Inspector
-    - Plugin URL: TBD
+    - Plugin URL: https://ff14wed.github.io/inspector-plugin/
 4. Click Add Plugin
 5. You should now be able to navigate to Inspector and start using it.
 
