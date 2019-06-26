@@ -1,6 +1,7 @@
 {
   "name": "inspector-plugin",
   "version": "0.1.0",
+  "homepage": "https://ff14wed.github.io/inspector-plugin",
   "private": true,
   "dependencies": {
     "@blueprintjs/core": "^3.16.2",
