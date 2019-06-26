@@ -6,12 +6,15 @@ Using this tool is as simple as [adding it to Aetherometer](#installation).
 
 ## Features
 
+[Preview of UI](doc/preview.png)
+
 - Displays all entities nearby and their relative sizes and locations on a map.
 - There is a toggleable option to allow the map to follow your character's movements.
 - Displays all casted area-of-effect abilities as colored telegraphs, including those casted by allies.
 - You can search for a nearby entity by name.
 - Live displays most spawn and combat attributes for all entities including
   status effects, attack names, and cast names.
+- Interactive map allows you to pan, zoom in/out, or select an entity.
 
 ## What Inspector does not do
 
