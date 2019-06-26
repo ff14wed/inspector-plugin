@@ -6,7 +6,7 @@ Using this tool is as simple as [adding it to Aetherometer](#installation).
 
 ## Features
 
-[Preview of UI](doc/preview.png)
+<img src="doc/preview.png" alt="Preview of UI" />
 
 - Displays all entities nearby and their relative sizes and locations on a map.
 - There is a toggleable option to allow the map to follow your character's movements.
