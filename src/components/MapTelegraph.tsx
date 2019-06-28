@@ -119,7 +119,7 @@ export default class Telegraph extends PIXI.Sprite {
         this.anchor.y = 0;
         this.width = xAxisModifier;
         this.height = effectRange;
-        this.rotation = -location.orientation;
+        this.rotation = - location.orientation + Math.PI;
         break;
       case "fan":
       case "circle":
@@ -127,7 +127,7 @@ export default class Telegraph extends PIXI.Sprite {
         this.anchor.y = 0.5;
         this.width = effectRange * 2;
         this.height = effectRange * 2;
-        this.rotation = Math.PI/2 - location.orientation;
+        this.rotation = - location.orientation - Math.PI/2;
     }
 
     this.position.x = location.x;
