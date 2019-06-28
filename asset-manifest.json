@@ -1,12 +1,12 @@
 {
   "files": {
     "main.css": "/inspector-plugin/static/css/main.1bd4c675.chunk.css",
-    "main.js": "/inspector-plugin/static/js/main.54166a9a.chunk.js",
+    "main.js": "/inspector-plugin/static/js/main.ad64d51a.chunk.js",
     "runtime~main.js": "/inspector-plugin/static/js/runtime~main.4df81f35.js",
     "static/css/2.74c780e0.chunk.css": "/inspector-plugin/static/css/2.74c780e0.chunk.css",
     "static/js/2.1b7507ac.chunk.js": "/inspector-plugin/static/js/2.1b7507ac.chunk.js",
     "index.html": "/inspector-plugin/index.html",
-    "precache-manifest.b2d822f8ad5cfdcfec4c7fd07e5898ab.js": "/inspector-plugin/precache-manifest.b2d822f8ad5cfdcfec4c7fd07e5898ab.js",
+    "precache-manifest.1d877bbb93c8aed458ddcf64de913bda.js": "/inspector-plugin/precache-manifest.1d877bbb93c8aed458ddcf64de913bda.js",
     "service-worker.js": "/inspector-plugin/service-worker.js",
     "static/media/App.css": "/inspector-plugin/static/media/icons-20.90247cfd.ttf"
   }
