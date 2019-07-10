@@ -1,0 +1,1 @@
+{"version":3,"sources":["App.css"],"names":[],"mappings":"AAGA,KACE,QACF","file":"main.1bd4c675.chunk.css","sourcesContent":["@import \"~@blueprintjs/core/lib/css/blueprint.css\";\n@import \"~@blueprintjs/icons/lib/css/blueprint-icons.css\";\n\nbody {\n  margin: 0;\n}"]}
