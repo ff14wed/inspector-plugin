@@ -218,7 +218,7 @@ class Stream {
   @computed get entityList() {
     let ents: Entity[] = [];
     this.entities.forEach((ent) => ents.push(ent));
-    ents.sort((a, b) => (a.index < b.index) ? -1 : 1);
+    ents.sort((a, b) => a.index - b.index);
     return ents;
   }
 
