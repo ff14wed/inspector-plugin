@@ -6,7 +6,7 @@ import Entity, { EntitySpec } from './entity';
 export interface StreamStoreProps {
   streamStore: Stream;
 }
-export const streamStoreDefaultProps = {streamStore: (null as unknown) as Stream};
+export const streamStoreDefaultProps = { streamStore: (null as unknown) as Stream };
 
 export interface MapInfo {
   key: number;
@@ -46,13 +46,11 @@ class Stream {
   @observable serverID = 0;
   @observable characterID = 0;
 
-  @observable place: Place = { mapID: 0, territoryID: 0, maps: []};
+  @observable place: Place = { mapID: 0, territoryID: 0, maps: [] };
   @observable entities = new Map<number, Entity>();
 
   @observable selectedEntityID = 0;
   @observable selectedMapIndex = 0;
-
-  triggerStore = null;
 
   @observable options: InspectorOptions = {
     followSelection: true,
@@ -107,15 +105,15 @@ class Stream {
       this.streamID,
       action((typename: string, eventData: any) => {
         if (this.loading) { return; }
-        switch(typename) {
-        case "UpdateIDs":
-          this.serverID = eventData.serverID;
-          this.characterID = eventData.characterID;
-          break;
-        case "UpdateMap":
-          this.place = eventData.place;
-          this.selectedMapIndex = 0;
-          break;
+        switch (typename) {
+          case "UpdateIDs":
+            this.serverID = eventData.serverID;
+            this.characterID = eventData.characterID;
+            break;
+          case "UpdateMap":
+            this.place = eventData.place;
+            this.selectedMapIndex = 0;
+            break;
         }
       }),
     );
@@ -171,7 +169,6 @@ class Stream {
 
   @action setEntities(entities: EntitySpec[]) {
     this.entities.clear();
-    this.triggerStore = null;
     entities.forEach((ent) => {
       this.addEntity(ent);
     });
