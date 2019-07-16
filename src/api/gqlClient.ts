@@ -60,6 +60,13 @@ export default class GQLClient {
     ]);
   }
 
+  public getAPIVersion = async (): Promise<string> => {
+    const data = await executeOperation(
+      this.httpLink, { query: gql.versionQuery },
+    );
+    return data.apiVersion;
+  }
+
   public listStreams = async () => {
     const data = await executeOperation(
       this.httpLink, { query: gql.listStreamsQuery },
@@ -80,7 +87,7 @@ export default class GQLClient {
   ) =>
     execute(this.wsLink, { query: gql.streamSubscription })
       .subscribe({
-        next: ( subscriptionData ) => {
+        next: (subscriptionData) => {
           if (!subscriptionData.data) { return; }
           let streamEvent = subscriptionData.data.streamEvent;
           if (streamEvent.streamID !== streamID) { return; }
@@ -94,7 +101,7 @@ export default class GQLClient {
   ) =>
     execute(this.wsLink, { query: gql.entitySubscription })
       .subscribe({
-        next: ( subscriptionData ) => {
+        next: (subscriptionData) => {
           if (!subscriptionData.data) { return; }
           let entityEvent = subscriptionData.data.entityEvent;
           if (entityEvent.streamID !== streamID) { return; }

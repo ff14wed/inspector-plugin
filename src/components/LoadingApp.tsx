@@ -1,6 +1,6 @@
 
-import * as React from 'react';
-import { Colors, NonIdealState, Spinner  } from '@blueprintjs/core';
+import React, { Component } from 'react';
+import { Colors, NonIdealState, Spinner } from '@blueprintjs/core';
 
 import styled from 'styled-components';
 
@@ -13,8 +13,22 @@ const AppRoot = styled.div`
   margin: auto;
 `;
 
-export default class LoadingApp extends React.Component {
+interface LoadingAppProps {
+  error?: string;
+}
+
+export default class LoadingApp extends Component<LoadingAppProps> {
   render() {
+    if (this.props.error) {
+      return (
+        <AppRoot className="bp3-dark">
+          <NonIdealState
+            icon="warning-sign"
+            title={this.props.error}
+          />
+        </AppRoot>
+      )
+    }
     return (
       <AppRoot className="bp3-dark">
         <NonIdealState

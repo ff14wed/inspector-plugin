@@ -43,9 +43,9 @@ class Main extends Component<StreamStoreProps> {
   }
 
   render() {
-    const { loading } = this.props.streamStore;
+    const { loading, error } = this.props.streamStore;
 
-    if (loading) return <LoadingApp />;
+    if (loading) return <LoadingApp error={error} />;
     return (<App />);
   }
 }

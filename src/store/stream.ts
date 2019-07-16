@@ -3,6 +3,8 @@ import GQLClient from '../api/gqlClient';
 
 import Entity, { EntitySpec } from './entity';
 
+import semver from 'semver';
+
 export interface StreamStoreProps {
   streamStore: Stream;
 }
@@ -38,6 +40,7 @@ export interface PluginParams {
 
 class Stream {
   @observable loading = true;
+  @observable error?: string;
 
   gqlClient?: GQLClient;
   streamID = 0;
@@ -59,12 +62,24 @@ class Stream {
 
   @action async initialize(pluginParams: PluginParams) {
     this.gqlClient = new GQLClient(pluginParams.apiURL, pluginParams.apiToken);
+
+    const apiVersion = await this.gqlClient.getAPIVersion();
+
+    if (!semver.satisfies(apiVersion, '>=0.2.0-beta', { includePrerelease: true })) {
+      this.error = "Your version of Aetherometer is no longer supported by " +
+        "this plugin. Please update to a newer version.";
+      return;
+    }
+
     const streamID = this.streamID = await this.getActiveStreamID(pluginParams);
     this.apiURL = pluginParams.apiURL;
     this.subscribeToStreamEvents();
     this.subscribeToEntityEvents();
 
-    if (!streamID) { return; }
+    if (!streamID) {
+      this.error = "Stream ID not found!";
+      return;
+    }
 
     const stream = await this.gqlClient.getStream(streamID);
     const { serverID, characterID, place, entities } = stream;

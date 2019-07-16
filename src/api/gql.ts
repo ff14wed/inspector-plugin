@@ -263,6 +263,12 @@ export default new class {
     ${this.classJobFragment}
   `;
 
+  versionQuery = gql`
+    query Version {
+      apiVersion
+    }
+  `;
+
   streamQuery = gql`
     query GetStream($streamID: Int!) {
       stream(streamID: $streamID) {
