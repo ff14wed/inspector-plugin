@@ -27,11 +27,11 @@ class Interpolation {
     } else if (t >= this.t1) {
       return this.p1;
     }
-    const lerpFactor = (t - this.t0)/(this.duration);
+    const lerpFactor = (t - this.t0) / (this.duration);
     const xt = this.p0.x + (this.p1.x - this.p0.x) * lerpFactor;
     const yt = this.p0.y + (this.p1.y - this.p0.y) * lerpFactor;
     const zt = this.p0.z + (this.p1.z - this.p0.z) * lerpFactor;
-    return {x: xt, y: yt, z: zt, orientation: 0, lastUpdated: 0};
+    return { x: xt, y: yt, z: zt, orientation: 0, lastUpdated: 0 };
   }
 }
 
@@ -68,7 +68,7 @@ export interface Resources {
 
 export interface Status {
   id: number;
-  extra: number;
+  param: number;
   name: string;
   description: string;
   startedTime: number;
@@ -172,39 +172,39 @@ export default class Entity {
   }
 
   @action handleEntityEvent(typename: string, eventData: any) {
-    switch(typename) {
-    case "UpdateTarget":
-      this.targetID = eventData.targetID;
-      this.target = eventData.target;
-      break;
-    case "UpdateClass":
-      this.classJob = eventData.classJob;
-      break;
-    case "UpdateLastAction":
-      this.lastAction = eventData.action;
-      break;
-    case "UpdateCastingInfo":
-      this.castingInfo = eventData.castingInfo;
-      break;
-    case "UpsertStatus":
-      this.statuses[eventData.index] = eventData.status;
-      break;
-    case "RemoveStatus":
-      delete this.statuses[eventData.index];
-      break;
-    case "UpdateLocation":
-      let p0 = this.location;
-      this.location = eventData.location;
-      if (this.options.locationInterpolation) {
-        if (this.interpBufffer.length === 0) {
-          p0.lastUpdated = eventData.location.lastUpdated - 350;
+    switch (typename) {
+      case "UpdateTarget":
+        this.targetID = eventData.targetID;
+        this.target = eventData.target;
+        break;
+      case "UpdateClass":
+        this.classJob = eventData.classJob;
+        break;
+      case "UpdateLastAction":
+        this.lastAction = eventData.action;
+        break;
+      case "UpdateCastingInfo":
+        this.castingInfo = eventData.castingInfo;
+        break;
+      case "UpsertStatus":
+        this.statuses[eventData.index] = eventData.status;
+        break;
+      case "RemoveStatus":
+        delete this.statuses[eventData.index];
+        break;
+      case "UpdateLocation":
+        let p0 = this.location;
+        this.location = eventData.location;
+        if (this.options.locationInterpolation) {
+          if (this.interpBufffer.length === 0) {
+            p0.lastUpdated = eventData.location.lastUpdated - 350;
+          }
+          this.interpBufffer.push(new Interpolation(p0, eventData.location, performance.now()));
         }
-        this.interpBufffer.push(new Interpolation(p0, eventData.location, performance.now()));
-      }
-      break;
-    case "UpdateResources":
-      this.resources = eventData.resources;
-      break;
+        break;
+      case "UpdateResources":
+        this.resources = eventData.resources;
+        break;
     }
   }
 
@@ -213,7 +213,7 @@ export default class Entity {
       return;
     }
     let interpolation: Interpolation | undefined;
-    while(this.interpBufffer.length > 0) {
+    while (this.interpBufffer.length > 0) {
       if (time < this.interpBufffer[0].t0) {
         return;
       } else if (time > this.interpBufffer[0].t1) {
@@ -227,10 +227,10 @@ export default class Entity {
       this.interpLocation = interpolation.pt(time);
       return;
     }
-    let {x: xi, y: yi, z: zi} = this.interpLocation;
-    let {x, y, z} = this.location;
-    let [dx, dy, dz] = [(xi-x), (yi-y), (zi-z)];
-    if (Math.sqrt(dx*dx + dy*dy + dz*dz) > 0.1) {
+    let { x: xi, y: yi, z: zi } = this.interpLocation;
+    let { x, y, z } = this.location;
+    let [dx, dy, dz] = [(xi - x), (yi - y), (zi - z)];
+    if (Math.sqrt(dx * dx + dy * dy + dz * dz) > 0.1) {
       this.interpLocation = this.location;
     }
   }

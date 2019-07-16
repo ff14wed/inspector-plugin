@@ -42,7 +42,7 @@ export default new class {
   statusFragment = gql`
     fragment status on Status {
       id
-      extra
+      param
       name
       description
       startedTime
