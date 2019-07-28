@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { Classes, Tabs as BPTabs, HTMLSelect } from '@blueprintjs/core';
 
-import InlineDiv from './InlineDiv';
-
 export default class Tabs extends BPTabs {
   render() {
     const { selectedTabId } = this.state;
@@ -14,12 +12,12 @@ export default class Tabs extends BPTabs {
 
     return (
       <div className={Classes.TABS}>
-        <InlineDiv className={Classes.TEXT_LARGE}>Display:</InlineDiv>
-        <InlineDiv role="tablist">
+        <span className={Classes.TEXT_LARGE} style={{ marginRight: "5px" }}>Display:</span>
+        <span role="tablist">
           <HTMLSelect onChange={this.onChangeTab} value={selectedTabId}>
             {tabTitles}
           </HTMLSelect>
-        </InlineDiv>
+        </span>
         {tabPanels}
       </div>
     );
@@ -31,7 +29,7 @@ export default class Tabs extends BPTabs {
 
   renderTabTitle = (child, i) => {
     if (!child.props) return child;
-    let {id, title} = child.props;
+    let { id, title } = child.props;
     return <option key={i} value={id}>{title}</option>;
   }
 }

@@ -4,7 +4,6 @@ import { MenuItem, Classes } from '@blueprintjs/core';
 
 import { observer } from 'mobx-react';
 
-import InlineDiv from './InlineDiv';
 import Entity from '../store/entity';
 
 const smallClasses = `${Classes.TEXT_SMALL} ${Classes.TEXT_MUTED}`;
@@ -28,19 +27,19 @@ export default class EntityListItem extends Component<EntityListItemProps> {
     let child = (
       <div>
         <div>
-          <InlineDiv>{entity.realName} </InlineDiv>
-          { entity.hasTarget && entity.target &&
-            <InlineDiv className={smallClasses}>>> {entity.target.realName} </InlineDiv>
+          <span>{entity.realName}</span>
+          {entity.hasTarget && entity.target &&
+            <span className={smallClasses}> >> {entity.target.realName} </span>
           }
         </div>
         <div>
-          { entity.hasTarget ? (
-            <InlineDiv className={smallClasses}>({entity.hexID} >> {entity.hexTargetID})</InlineDiv>
+          {entity.hasTarget ? (
+            <span className={smallClasses}>({entity.hexID} >> {entity.hexTargetID})</span>
           ) : (
-            <InlineDiv className={smallClasses}>({entity.hexID})</InlineDiv>
-          )}
-          { entity.castingSummary && (
-            <InlineDiv className={smallClasses}>| Casting: {entity.castingSummary}</InlineDiv>
+              <span className={smallClasses}>({entity.hexID})</span>
+            )}
+          {entity.castingSummary && (
+            <span className={smallClasses}> | Casting: {entity.castingSummary}</span>
           )}
         </div>
       </div>
