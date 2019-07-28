@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Inspector Plugin",
+  "name": "Inspector Plugin",
   "icons": [
     {
       "src": "favicon.ico",
