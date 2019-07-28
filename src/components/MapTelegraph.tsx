@@ -26,7 +26,7 @@ const knownCasts: { [k: number]: number } = {
   13108: 3,
 };
 
-const knownFans: { [k: number]: number }= {
+const knownFans: { [k: number]: number } = {
   0x3262: 210,
   0x3263: 210,
   0x3264: 210,
@@ -66,10 +66,13 @@ export default class Telegraph extends PIXI.Sprite {
     let telegraphType = "";
     switch (castType) {
       case 4:
+      case 8:
+      case 12:
         telegraphType = "rectangle";
         graphics.drawRect(0, 0, 1024, 1024);
         break;
       case 3:
+      case 13:
         let angle = extractAngle(omen)
         if (actionID in knownFans) {
           angle = knownFans[actionID];
@@ -77,10 +80,10 @@ export default class Telegraph extends PIXI.Sprite {
         if (angle === 0) {
           break;
         }
-        let radAngle = (angle/180)*Math.PI;
+        let radAngle = (angle / 180) * Math.PI;
         telegraphType = "fan";
         graphics.moveTo(512, 512);
-        graphics.arc(512, 512, 512, -radAngle/2, radAngle/2);
+        graphics.arc(512, 512, 512, -radAngle / 2, radAngle / 2);
         graphics.closePath();
         break;
       case 2:
@@ -113,7 +116,7 @@ export default class Telegraph extends PIXI.Sprite {
     if (castingEntity.isEnemy) {
       color = Colors.VERMILION3;
     }
-    switch(telegraphType) {
+    switch (telegraphType) {
       case "rectangle":
         this.anchor.x = 0.5;
         this.anchor.y = 0;
@@ -127,12 +130,12 @@ export default class Telegraph extends PIXI.Sprite {
         this.anchor.y = 0.5;
         this.width = effectRange * 2;
         this.height = effectRange * 2;
-        this.rotation = - location.orientation - Math.PI/2;
+        this.rotation = - location.orientation - Math.PI / 2;
     }
 
     this.position.x = location.x;
     this.position.y = location.z;
-    this.tint =  parseInt(color.substring(1), 16);
+    this.tint = parseInt(color.substring(1), 16);
   }
 
   dispose() {
