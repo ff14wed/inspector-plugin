@@ -152,6 +152,7 @@ export default new class {
     fragment stream on Stream {
       id
       serverID
+      instanceNum
       characterID
 
       place {
@@ -178,6 +179,7 @@ export default new class {
           __typename
           ... on UpdateIDs {
             serverID
+            instanceNum
             characterID
           }
           ... on UpdateMap {

@@ -47,6 +47,7 @@ class Stream {
   apiURL = '';
 
   @observable serverID = 0;
+  @observable instanceNum = 0;
   @observable characterID = 0;
 
   @observable place: Place = { mapID: 0, territoryID: 0, maps: [] };
@@ -82,8 +83,9 @@ class Stream {
     }
 
     const stream = await this.gqlClient.getStream(streamID);
-    const { serverID, characterID, place, entities } = stream;
+    const { serverID, instanceNum, characterID, place, entities } = stream;
     this.serverID = serverID;
+    this.instanceNum = instanceNum;
     this.characterID = characterID;
     this.place = place;
     for (let ent of entities) {
@@ -123,6 +125,7 @@ class Stream {
         switch (typename) {
           case "UpdateIDs":
             this.serverID = eventData.serverID;
+            this.instanceNum = eventData.instanceNum;
             this.characterID = eventData.characterID;
             break;
           case "UpdateMap":

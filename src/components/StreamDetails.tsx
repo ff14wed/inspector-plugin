@@ -18,7 +18,7 @@ export default class StreamDetails extends Component<StreamStoreProps> {
   static defaultProps = streamStoreDefaultProps;
 
   render() {
-    const { streamID, serverID, hexCharacterID, currentMap } = this.props.streamStore;
+    const { streamID, serverID, instanceNum, hexCharacterID, currentMap } = this.props.streamStore;
     if (!serverID) {
       return (
         <PaddedCard elevation={Elevation.THREE}>
@@ -34,13 +34,15 @@ export default class StreamDetails extends Component<StreamStoreProps> {
     }
     const infos = {
       ServerID: serverID,
+      InstanceNum: instanceNum,
       CharacterID: hexCharacterID,
       CurrentMap: currentMap,
     };
 
+
     return (
       <PaddedCard elevation={Elevation.THREE}>
-        <H5>Stream { streamID }</H5>
+        <H5>Stream {streamID}</H5>
         <TwoColumnTable infos={infos} />
         <Tabs id="ViewControls">
           <Tab id="map" title="Map" panel={<MapSelectorPanel />} />
@@ -66,7 +68,7 @@ class MapSelectorPanel extends Component<StreamStoreProps> {
     return (
       <div>
         <HTMLSelect onChange={this.onChange} value={selectedMapIndex}>
-          { place.maps.map((m, i) => <option key={i} value={i}>{m.PlaceName}{m.PlaceNameSub && ` - ${m.PlaceNameSub}`}</option>) }
+          {place.maps.map((m, i) => <option key={i} value={i}>{m.PlaceName}{m.PlaceNameSub && ` - ${m.PlaceNameSub}`}</option>)}
         </HTMLSelect>
       </div>
     );
