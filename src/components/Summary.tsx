@@ -7,6 +7,10 @@ import ResourceValue from './ResourceValue';
 import TwoColumnTable from './TwoColumnTable';
 import Entity from '../store/entity';
 
+const toDegrees = (radians: number) => {
+  return (radians / Math.PI) * 180;
+}
+
 interface SummaryProps {
   entity: Entity;
 }
@@ -24,7 +28,7 @@ export default class Summary extends Component<SummaryProps> {
       X: location.x,
       Y: location.y,
       Z: location.z,
-      θ: `${location.orientation.toFixed(3)} radians CCW from North`,
+      Rot: `${toDegrees(location.orientation).toFixed(3)}° CCW from North`,
     }
     return (
       <TwoColumnTable infos={infos} />
