@@ -29,12 +29,12 @@ export default class EntityListItem extends Component<EntityListItemProps> {
         <div>
           <span>{entity.realName}</span>
           {entity.hasTarget && entity.target &&
-            <span className={smallClasses}> >> {entity.target.realName} </span>
+            <span className={smallClasses}> {">>"} {entity.target.realName} </span>
           }
         </div>
         <div>
           {entity.hasTarget ? (
-            <span className={smallClasses}>({entity.hexID} >> {entity.hexTargetID})</span>
+            <span className={smallClasses}>({entity.hexID} {">>"} {entity.hexTargetID})</span>
           ) : (
               <span className={smallClasses}>({entity.hexID})</span>
             )}
