@@ -11,7 +11,6 @@ import MapTelegraph from './MapTelegraph';
 import { observe, IMapDidChange, ObservableMap } from 'mobx';
 import { StreamStoreProps, streamStoreDefaultProps, MapInfo } from '../store/stream';
 import Entity from '../store/entity';
-import Telegraph from './MapTelegraph';
 
 // interface ViewportFixed {
 //   screenHeight: number;
@@ -30,7 +29,7 @@ export default class MapView extends Component<StreamStoreProps> {
   private mapContainer = new PIXI.Container();
 
   private entitySprites: { [key: number]: MapEntity } = {};
-  private telegraphSprites: { [key: number]: Telegraph } = {};
+  private telegraphSprites: { [key: number]: PIXI.DisplayObject } = {};
   private mapSprite?: MapBackground;
 
   private entityObserverDispose?: () => void;
@@ -38,7 +37,7 @@ export default class MapView extends Component<StreamStoreProps> {
   private selectedEntityObserverDispose?: () => void;
   private optionsObserverDispose?: () => void;
 
-  private coordText = new PIXI.Text('', {fontFamily : 'Arial', fontSize: 24, fill : 0x000000, align : 'center'});
+  private coordText = new PIXI.Text('', { fontFamily: 'Arial', fontSize: 24, fill: 0x000000, align: 'center' });
   private hoverName?: string;
 
   componentDidMount() {
@@ -115,7 +114,7 @@ export default class MapView extends Component<StreamStoreProps> {
   resize = () => {
     if (!this.app || !this.viewport) { return; }
     const parent = this.app.view.parentNode as HTMLElement;
-    this.app.renderer.resize(parent.clientWidth, parent.clientHeight-4);
+    this.app.renderer.resize(parent.clientWidth, parent.clientHeight - 4);
     this.viewport.resize(this.app.screen.width, this.app.screen.height);
   }
 
@@ -173,7 +172,7 @@ export default class MapView extends Component<StreamStoreProps> {
     if (key in this.telegraphSprites) {
       let telegraph = this.telegraphSprites[key];
       this.telegraphsContainer.removeChild(telegraph);
-      telegraph.dispose();
+      telegraph.destroy();
       delete this.telegraphSprites[key];
     }
   }
@@ -183,8 +182,9 @@ export default class MapView extends Component<StreamStoreProps> {
 
     this.removeTelegraph(key);
 
-    let sprite = new MapTelegraph(entity, this.app.renderer);
-    if (sprite.telegraphTexture) {
+    const telegraph = new MapTelegraph(entity, this.app.renderer, 0);
+    let sprite = telegraph.createCompositeTelegraph(entity, this.app.renderer);
+    if (sprite) {
       this.telegraphSprites[key] = sprite;
       this.telegraphsContainer.addChild(sprite);
     }
@@ -215,10 +215,10 @@ export default class MapView extends Component<StreamStoreProps> {
     let centerY = this.mapSprite.position.y;
     this.viewport.moveCenter(centerX, centerY);
 
-    let leftClamp = centerX - width/2;
-    let rightClamp = centerX + width/2;
-    let topClamp = centerY - height/2;
-    let bottomClamp = centerY + height/2;
+    let leftClamp = centerX - width / 2;
+    let rightClamp = centerX + width / 2;
+    let topClamp = centerY - height / 2;
+    let bottomClamp = centerY + height / 2;
     this.viewport.clamp({
       left: leftClamp,
       top: topClamp,
