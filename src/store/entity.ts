@@ -1,4 +1,4 @@
-import { observable, action, computed } from 'mobx';
+import { observable, action, computed, ObservableMap } from 'mobx';
 import { InspectorOptions } from './stream';
 
 function toHex(id: number): string {
@@ -141,7 +141,7 @@ export default class Entity {
   @observable lastAction?: Action;
   @observable castingInfo?: CastingInfo;;
 
-  @observable statuses: { [idx: number]: Status } = {};
+  statuses = observable.map<number, Status>();
 
   interpBufffer: Interpolation[] = [];
   @observable interpLocation: Location;
@@ -166,7 +166,7 @@ export default class Entity {
     this.interpLocation = ent.location;
     this.rawSpawnData = JSON.parse(ent.rawSpawnJSONData);
     ent.statuses.forEach((s, idx) => {
-      if (s) { this.statuses[idx] = s; }
+      if (s) { this.statuses.set(idx, s); }
     });
     this.options = options;
   }
@@ -187,10 +187,10 @@ export default class Entity {
         this.castingInfo = eventData.castingInfo;
         break;
       case "UpsertStatus":
-        this.statuses[eventData.index] = eventData.status;
+        this.statuses.set(eventData.index, eventData.status);
         break;
       case "RemoveStatus":
-        delete this.statuses[eventData.index];
+        this.statuses.delete(eventData.index);
         break;
       case "UpdateLocation":
         let p0 = this.location;
@@ -276,6 +276,10 @@ export default class Entity {
     delete info.target;
 
     return info;
+  }
+
+  @computed get statusList() {
+    return Object.fromEntries(this.statuses.toJS());
   }
 
   @computed get radius() {

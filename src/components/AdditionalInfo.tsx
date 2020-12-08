@@ -17,7 +17,7 @@ export default class AdditionalInfo extends Component<AdditionalInfoProps> {
 
     const lastActionTab = (<TabWrapper infoGetter={() => entity.lastAction} />);
     const castInfoTab = (<TabWrapper infoGetter={() => entity.castingDetails} />);
-    const statusEffectsTab = (<TabWrapper infoGetter={() => entity.statuses} />);
+    const statusEffectsTab = (<TabWrapper infoGetter={() => entity.statusList} />);
     const bNPCInfoTab = (<TabWrapper infoGetter={() => entity.bNPCInfo} />);
     const spawnInfoTab = (<TabWrapper infoGetter={() => entity.rawSpawnData} />);
 
