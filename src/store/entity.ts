@@ -1,4 +1,4 @@
-import { observable, action, computed, ObservableMap } from 'mobx';
+import { observable, action, computed } from 'mobx';
 import { InspectorOptions } from './stream';
 
 function toHex(id: number): string {
