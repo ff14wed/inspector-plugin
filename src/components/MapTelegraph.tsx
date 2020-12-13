@@ -55,6 +55,13 @@ const knownFans: { [k: number]: number } = {
   12904: 210,
   12905: 210,
   13108: 330,
+  20037: 150,
+  20038: 45,
+  22663: 210,
+  22664: 210,
+  22665: 210,
+  22701: 210,
+  22702: 210,
 };
 
 type TelegraphType = "" | "rectangle" | "cross" | "fan" | "circle" | "halo";
