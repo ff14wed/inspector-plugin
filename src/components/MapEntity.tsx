@@ -26,7 +26,7 @@ const coneCanvas = (() => {
 
   ctx.beginPath();
   ctx.moveTo(0, 256);
-  ctx.arc(0, 256, 256, -Math.PI/6, Math.PI/6);
+  ctx.arc(0, 256, 256, -Math.PI / 6, Math.PI / 6);
   ctx.lineTo(0, 256);
 
   var gradient = ctx.createLinearGradient(0, 0, 230, 0);
@@ -44,7 +44,7 @@ const selectIndicatorCanvas = (() => {
   canvas.width = 512;
   canvas.height = 512;
   var ctx = canvas.getContext('2d')!;
-  ctx.arc(256, 256, 200, 0, 2*Math.PI);
+  ctx.arc(256, 256, 200, 0, 2 * Math.PI);
   ctx.lineWidth = 50;
   ctx.strokeStyle = "#FF0000";
   ctx.stroke();
@@ -64,28 +64,28 @@ const entityCircleCanvas = (() => {
 
   ctx.globalAlpha = 0.5;
   ctx.beginPath();
-  ctx.arc(512, 512, 512, 0, 2*Math.PI);
+  ctx.arc(512, 512, 512, 0, 2 * Math.PI);
   ctx.fill();
 
   ctx.globalAlpha = 1.0;
   ctx.lineWidth = 32;
 
   ctx.beginPath();
-  ctx.arc(512, 512, 512-(ctx.lineWidth/2), 0.25*Math.PI, 0.75*Math.PI);
+  ctx.arc(512, 512, 512 - (ctx.lineWidth / 2), 0.25 * Math.PI, 0.75 * Math.PI);
   ctx.stroke();
 
   ctx.beginPath();
-  ctx.arc(512, 512, 512-(ctx.lineWidth/2), 1.25*Math.PI, 1.75*Math.PI);
+  ctx.arc(512, 512, 512 - (ctx.lineWidth / 2), 1.25 * Math.PI, 1.75 * Math.PI);
   ctx.stroke();
 
   ctx.lineWidth = 64;
   ctx.beginPath();
-  ctx.arc(512, 512, 512-(ctx.lineWidth/2), 1.75*Math.PI, 0.25*Math.PI);
+  ctx.arc(512, 512, 512 - (ctx.lineWidth / 2), 1.75 * Math.PI, 0.25 * Math.PI);
   ctx.stroke();
 
   ctx.lineWidth = 128;
   ctx.beginPath();
-  ctx.arc(512, 512, 512-(ctx.lineWidth/2), 1.9*Math.PI, 0.1*Math.PI);
+  ctx.arc(512, 512, 512 - (ctx.lineWidth / 2), 1.9 * Math.PI, 0.1 * Math.PI);
   ctx.stroke();
 
   return canvas;
@@ -114,6 +114,7 @@ export default class MapEntity extends PIXI.Sprite {
   private locationObserverDispose?: () => void;
   private interpLocationObserverDispose?: () => void;
   private castingObserverDispose?: () => void;
+  private hiddenObserverDispose?: () => void;
 
   private baseEntity: Entity;
   private options: InspectorOptions;
@@ -135,8 +136,8 @@ export default class MapEntity extends PIXI.Sprite {
     const radius = this.baseEntity.radius;
     this.anchor.x = 0.5;
     this.anchor.y = 0.5;
-    this.height = radius*2;
-    this.width = radius*2;
+    this.height = radius * 2;
+    this.width = radius * 2;
 
     this.interactive = true;
     this.interactiveChildren = false;
@@ -151,6 +152,7 @@ export default class MapEntity extends PIXI.Sprite {
     this.locationObserverDispose = observe(this.baseEntity, "location", this.locationUpdated);
     this.interpLocationObserverDispose = observe(this.baseEntity, "interpLocation", this.interpLocationUpdated);
     this.castingObserverDispose = observe(this.baseEntity, "castingInfo", telegraphUpdated);
+    this.hiddenObserverDispose = observe(this.baseEntity, "isHidden", this.hiddenUpdated);
   }
 
   locationUpdated = () => {
@@ -159,7 +161,7 @@ export default class MapEntity extends PIXI.Sprite {
       this.position.x = x;
       this.position.y = z;
     }
-    this.rotation = -Math.PI/2 - orientation;
+    this.rotation = -Math.PI / 2 - orientation;
   }
 
   interpLocationUpdated = () => {
@@ -173,7 +175,11 @@ export default class MapEntity extends PIXI.Sprite {
 
   targetUpdated = () => {
     const color = getColor(this.baseEntity);
-    this.tint =  parseInt(color.substring(1), 16);
+    this.tint = parseInt(color.substring(1), 16);
+  }
+
+  hiddenUpdated = () => {
+    this.visible = !this.baseEntity.isHidden;
   }
 
   select = () => {
@@ -189,7 +195,7 @@ export default class MapEntity extends PIXI.Sprite {
   }
 
   dispose() {
-    this.destroy({children: true});
+    this.destroy({ children: true });
 
     if (this.targetObserverDispose) { this.targetObserverDispose(); }
     if (this.locationObserverDispose) { this.locationObserverDispose(); }

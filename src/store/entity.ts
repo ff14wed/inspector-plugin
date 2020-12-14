@@ -139,7 +139,9 @@ export default class Entity {
   @observable resources: Resources;
   @observable location: Location;
   @observable lastAction?: Action;
-  @observable castingInfo?: CastingInfo;;
+  @observable castingInfo?: CastingInfo;
+  @observable isHidden: boolean = false;
+
 
   statuses = observable.map<number, Status>();
 

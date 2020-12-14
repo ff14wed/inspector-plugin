@@ -41,6 +41,9 @@ export default class EntityListItem extends Component<EntityListItemProps> {
           {entity.castingSummary && (
             <span className={smallClasses}> | Casting: {entity.castingSummary}</span>
           )}
+          {entity.isHidden && (
+            <span className={smallClasses}> | HIDDEN</span>
+          )}
         </div>
       </div>
     );

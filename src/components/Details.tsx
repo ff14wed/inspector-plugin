@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { H5, Elevation, NonIdealState } from '@blueprintjs/core';
+import { H5, Elevation, NonIdealState, Checkbox } from '@blueprintjs/core';
 import styled from 'styled-components';
 
 import { inject, observer } from 'mobx-react';
@@ -39,10 +39,15 @@ export default class Details extends Component<StreamStoreProps> {
     }
     return (
       <PaddedCard elevation={Elevation.THREE}>
-        <H5>{ selectedEntity.realName } ({ selectedEntity.hexID })</H5>
+        <H5>{selectedEntity.realName} ({selectedEntity.hexID})</H5>
         <Section><Summary entity={selectedEntity} /></Section>
         <Section><AdditionalInfo entity={selectedEntity} /></Section>
+        <Section><Checkbox checked={selectedEntity.isHidden} label="Hide?" onChange={this.onHideEntity} /> </Section>
       </PaddedCard>
     );
+  }
+
+  onHideEntity = (e: React.FormEvent<HTMLInputElement>) => {
+    this.props.streamStore.selectedEntity!.isHidden = e.currentTarget.checked;
   }
 }
