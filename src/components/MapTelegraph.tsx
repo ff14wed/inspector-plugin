@@ -43,6 +43,14 @@ const remapCast = (castingInfo: CastingInfo) => {
       return Object.assign({ ...castingInfo }, {
         castType: 3,
       });
+    case 22097:
+    case 22131:
+    case 22181:
+      return Object.assign({ ...castingInfo }, {
+        xAxisModifier: 16,
+        effectRange: 50,
+        castType: 12,
+      });
   }
   return castingInfo;
 };
