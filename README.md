@@ -1,5 +1,7 @@
 # Inspector
 
+[![GitHub Pages](https://github.com/ff14wed/inspector-plugin/actions/workflows/build.yml/badge.svg)](https://github.com/ff14wed/inspector-plugin/actions/workflows/build.yml)
+
 Inspector is a plugin leverages Aetherometer's network data parsing
 capabilities to live-inspect the state of your surroundings in FFXIV.
 Using this tool is as simple as [adding it to Aetherometer](#installation).
