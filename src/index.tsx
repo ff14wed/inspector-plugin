@@ -18,17 +18,21 @@ declare global {
 }
 
 const getPluginParams = async (): Promise<PluginParams> => {
-  if (!window.waitForInit) {
-    return {
-      apiURL: 'http://localhost:8080/query',
-    };
-  } else {
+  if (window.waitForInit) {
     return new Promise((resolve) => {
       window.initPlugin = (params) => {
         resolve(params);
       };
     });
   }
+  const urlParams = new URLSearchParams(window.location.search);
+  let apiURL = urlParams.get('apiURL') || 'http://localhost:8080/query';
+  let apiToken = urlParams.get('apiToken') || undefined;
+  let streamID = undefined;
+  if (urlParams.has('streamID')) {
+    streamID = parseInt(urlParams.get('streamID')!);
+  }
+  return { apiURL, apiToken, streamID };
 };
 
 @inject('streamStore')
