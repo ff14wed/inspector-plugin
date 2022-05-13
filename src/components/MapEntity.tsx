@@ -26,7 +26,7 @@ const coneCanvas = (() => {
 
   ctx.beginPath();
   ctx.moveTo(0, 256);
-  ctx.arc(0, 256, 256, -Math.PI / 6, Math.PI / 6);
+  ctx.arc(0, 256, 256, -Math.PI / 4, Math.PI / 4);
   ctx.lineTo(0, 256);
 
   var gradient = ctx.createLinearGradient(0, 0, 230, 0);
